@@ -9,9 +9,10 @@ import Foundation
 
 class RecipeService {
     private let mainUrl = "https://api.spoonacular.com"
+    private let API_KEY: String = String(ProcessInfo.processInfo.environment["RECIPE_API_KEY"] ?? "")
 
     func getListOfRecipe() async throws -> [RecipeListResponseBody] {
-        guard let url = URL(string: "\(mainUrl)/recipes/complexSearch?number=30&apiKey=b999c4e6780442f3bd619c9f66d230b0") else { fatalError("Missing URL") }
+        guard let url = URL(string: "\(mainUrl)/recipes/complexSearch?number=30&apiKey=\(API_KEY)") else { fatalError("Missing URL") }
         
         let urlRequest = URLRequest(url: url)
         
@@ -25,7 +26,7 @@ class RecipeService {
     }
     
     func getDetailRecipe(recipeId: Int) async throws -> RecipeDetailDataModel {
-        guard let url = URL(string: "\(mainUrl)/recipes/\(recipeId)/information?apiKey=b999c4e6780442f3bd619c9f66d230b0") else { fatalError("Missing URL") }
+        guard let url = URL(string: "\(mainUrl)/recipes/\(recipeId)/information?apiKey=\(API_KEY)") else { fatalError("Missing URL") }
         
         let urlRequest = URLRequest(url: url)
         
